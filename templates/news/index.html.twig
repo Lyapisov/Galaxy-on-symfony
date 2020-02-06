@@ -1,20 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewsController!{% endblock %}
+{% block title %}Galaxy{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div id="page">
+    <div id="header">
+        <a class="logo" href="/" name="Логотип">
+            <img src="/Style/SiteImages/logogalaxy.png" alt="Логотип">
+        </a>
+        <p id="label">
+            ГАЛАКТИКА
+        </p>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="photo_gallery">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/PROGRAMS/open/OSPanel/domains/galaxy-on-symfony/src/Controller/NewsController.php'|file_link(0) }}">src/Controller/NewsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/PROGRAMS/open/OSPanel/domains/galaxy-on-symfony/templates/news/index.html.twig'|file_link(0) }}">templates/news/index.html.twig</a></code></li>
-    </ul>
+        <div class="cycle-slideshow"
+             data-cycle-fx=carousel
+             data-cycle-timeout=5000
+             data-cycle-carousel-visible=3
+             data-cycle-carousel-fluid=true
+             data-cycle-slides="div.photo"
+             data-cycle-prev="#prev"
+             data-cycle-next="#next"
+        >
+            <div class="carousell">
+                <div class="item1">
+                    <?php foreach ($photoGallery as $photo): ?>
+                    <div class="photo">
+                        <a href="/photo/<?php echo $photo['id']; ?>">
+                            <img src="<?php echo Photo::getRelativePathForPhotolist($photo['id']); ?>"  alt="" height="170"/>
+                        </a>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <a class="left recommended-item-control" href="#" data-slide="prev" id="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right recommended-item-control" href="#" data-slide="next" id="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div id="content">
+        {% for news in allNews %}
+        <div class="article" id="article-{{ news.id }}">
+            <h1>{{ news.name }}</h1>
+            <p>
+                <img src="<?= Photo::getRelativePath($info['id']) ?>" width="250">
+                {{ news.content }}
+            </p>
+
+            <div id="footer">
+                <p>
+                    Автор: {{ news.author }}. Дата: {#{{ news.date }}г.#} Тема: {{ news.category }}.
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div id="sitebar">
+            <ul id="menubar">
+                <li><a href="/site/art/">ИЗО</a></li>
+                <li><a href="#">Лепка</a></li>
+                <li><a href="#">Английский</a></li>
+                <li><a href="#">Вышивание</a></li>
+                <li><a href="#">Другое</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}

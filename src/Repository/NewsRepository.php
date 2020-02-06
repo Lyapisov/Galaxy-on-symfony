@@ -18,4 +18,9 @@ class NewsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, News::class);
     }
+
+    public function getNews():array {
+
+        return $this->findAll();
+    }
 }
