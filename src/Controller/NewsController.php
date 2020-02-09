@@ -24,7 +24,7 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/news", name="news")
+     * @Route("/", name="news")
      */
     public function index()
     {

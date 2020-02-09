@@ -28,15 +28,13 @@ class NewsType extends AbstractType
     {
 
         $allNews = $this->newsRepos->getNews();
-        foreach ($allNews as $news){
 
-        }
         $builder
             ->add('name')
             ->add('category')
             ->add('content')
             ->add('photo')
-            ->add('date')
+            ->add('date', date_format())
             ->add('author')
             ->add('visibility')
         ;
